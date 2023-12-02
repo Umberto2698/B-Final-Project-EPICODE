@@ -6,10 +6,7 @@ import finalproject.user.enums.BloodType;
 import finalproject.user.enums.Sex;
 import finalproject.user.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,22 +14,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
 @Builder(builderClassName = "UserBuilder")
-@JsonIgnoreProperties({"createdAt", "password", "authorities", "bills", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
+@JsonIgnoreProperties({"password", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private String surname;
     private String email;
@@ -44,7 +39,10 @@ public class User implements UserDetails {
     private Sex sex;
     private LocalDate birthday;
     private String address;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "blood_type")
     private BloodType bloodtype;
+    @Column(name = "avatar_url")
     private String avatarUrl;
     private double height;
     private double weight;

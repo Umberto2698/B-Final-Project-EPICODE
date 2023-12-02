@@ -1,8 +1,11 @@
 package finalproject.user;
 
+import finalproject.authorization.AuthService;
+import finalproject.user.payloads.UserUpdateInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,10 +17,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthService authService;
+
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)
     public User getProfile(@AuthenticationPrincipal User currentUser) {
         return currentUser;
+    }
+
+    @PutMapping("/me")
+    public UserDetails updateProfile(@AuthenticationPrincipal User currentUser, @RequestBody UserUpdateInfoDTO body) {
+        return authService.update(currentUser.getId(), body);
     }
 
     @DeleteMapping("/me")
