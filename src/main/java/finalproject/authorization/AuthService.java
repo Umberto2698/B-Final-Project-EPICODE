@@ -50,9 +50,6 @@ public class AuthService {
 
     public User update(UUID id, UserUpdateInfoDTO body) {
         User found = userService.getById(id);
-        if (!body.email().isEmpty()) {
-            found.setEmail(body.email());
-        }
         if (!body.name().isEmpty()) {
             found.setName(body.name());
         }
