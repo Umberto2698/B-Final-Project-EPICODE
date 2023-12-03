@@ -2,6 +2,7 @@ package finalproject.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.javafaker.Faker;
+import finalproject.donation.Donation;
 import finalproject.user.enums.BloodType;
 import finalproject.user.enums.Sex;
 import finalproject.user.enums.UserRole;
@@ -23,7 +24,7 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 @Builder(builderClassName = "UserBuilder")
-@JsonIgnoreProperties({"password", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
+@JsonIgnoreProperties({"password", "donations", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -46,6 +47,9 @@ public class User implements UserDetails {
     private String avatarUrl;
     private double height;
     private double weight;
+
+    @OneToMany(mappedBy = "user")
+    private List<Donation> donations = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
