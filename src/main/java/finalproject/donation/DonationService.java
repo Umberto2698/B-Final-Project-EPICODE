@@ -29,6 +29,6 @@ public class DonationService {
         if (pageable.getPageSize() <= 0 || pageable.isUnpaged()) {
             throw new NotContextException();
         }
-        return donationRepository.findByDateYear(userId, year, pageable).orElseThrow(() -> new NotFoundException("no Record"));
+        return donationRepository.findByDateYear(userId, year, pageable).orElseThrow(() -> new NotFoundException("No Record."));
     }
 }

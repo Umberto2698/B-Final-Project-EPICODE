@@ -4,10 +4,7 @@ import finalproject.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NotContextException;
 
@@ -20,14 +17,14 @@ public class DonationController {
     @GetMapping("/me")
     public Page<Donation> getCurrentProfileDonations(@AuthenticationPrincipal User currentUser, @RequestParam(defaultValue = "0") int page,
                                                      @RequestParam(defaultValue = "10") int size,
-                                                     @RequestParam(defaultValue = "id") String orderBy) throws NotContextException {
+                                                     @RequestParam(defaultValue = "donationDate") String orderBy) throws NotContextException {
         return donationService.findByUserId(currentUser.getId(), page, size, orderBy);
     }
 
-    @GetMapping("/me")
-    public Page<Donation> getCurrentProfileDonationsByYear(@AuthenticationPrincipal User currentUser, @RequestParam int year, @RequestParam(defaultValue = "0") int page,
+    @GetMapping("/me/{year}")
+    public Page<Donation> getCurrentProfileDonationsByYear(@AuthenticationPrincipal User currentUser, @PathVariable int year, @RequestParam(defaultValue = "0") int page,
                                                            @RequestParam(defaultValue = "10") int size,
-                                                           @RequestParam(defaultValue = "id") String orderBy) throws NotContextException {
+                                                           @RequestParam(defaultValue = "donationDate") String orderBy) throws NotContextException {
         return donationService.getBillsByUserIdAndYear(currentUser.getId(), year, page, size, orderBy);
     }
 }

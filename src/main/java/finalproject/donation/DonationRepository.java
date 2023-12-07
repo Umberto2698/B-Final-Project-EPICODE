@@ -15,6 +15,6 @@ import java.util.UUID;
 public interface DonationRepository extends JpaRepository<Donation, UUID> {
     Page<Donation> findByUserId(UUID userId, Pageable pageable);
 
-    @Query("SELECT d FROM Donation d WHERE d.user.id =: userId AND EXTRACT(YEAR FROM d.donationDate)= :year")
+    @Query("SELECT d FROM Donation d WHERE d.user.id = :userId AND EXTRACT(YEAR FROM d.donationDate)= :year")
     Optional<Page<Donation>> findByDateYear(@Param("userId") UUID userId, @Param("year") int year, Pageable pageable);
 }
