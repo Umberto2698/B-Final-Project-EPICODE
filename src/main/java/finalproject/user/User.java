@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRole role = UserRole.USER;
     private String phone;
     @Enumerated(EnumType.STRING)
     private Sex sex;
@@ -54,11 +54,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
     }
 
     @Override
@@ -84,6 +79,15 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Sex getSex() {
+        return Objects.requireNonNullElse(this.sex, Sex.NONE);
+    }
+
+    public BloodType getBloodtype() {
+        return Objects.requireNonNullElse(this.bloodtype, BloodType.NONE);
+
     }
 
     public void setAvatarUrl(String avatarUrl) {

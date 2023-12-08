@@ -9,5 +9,6 @@ public enum BloodType {
     ABMINUS,
     ZEROPLUS,
     ZEROMINUS,
+    NONE
 
 }
