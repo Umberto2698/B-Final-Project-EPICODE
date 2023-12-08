@@ -23,7 +23,7 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException(email));
+                .orElseThrow(() -> new NotFoundException("No User with this email."));
     }
 
     public void delete(UUID id) {
