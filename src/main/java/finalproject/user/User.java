@@ -41,6 +41,7 @@ public class User implements UserDetails {
     private Sex sex;
     private LocalDate birthday;
     private String address;
+    @Enumerated(EnumType.STRING)
     private Region region;
     @Enumerated(EnumType.STRING)
     @Column(name = "blood_type")

@@ -1,5 +1,6 @@
 package finalproject.donation_center;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.donation.Donation;
 import finalproject.user.enums.Region;
 import jakarta.persistence.*;
@@ -27,5 +28,6 @@ public class DonationCenter {
     @Enumerated(EnumType.STRING)
     private Region region;
     @OneToMany(mappedBy = "center")
+    @JsonIgnore
     private List<Donation> donations;
 }
