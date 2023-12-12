@@ -1,4 +1,4 @@
-package finalproject.json;
+package finalproject.dataset;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
