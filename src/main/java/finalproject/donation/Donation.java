@@ -26,7 +26,7 @@ public class Donation {
     private LocalDate donationDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "check_in")
-    private Check check;
+    private Check check = Check.NO;
 
     @ManyToOne
     @JoinColumn(name = "donor_id")
