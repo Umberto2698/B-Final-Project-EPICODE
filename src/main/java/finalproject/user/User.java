@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.javafaker.Faker;
 import finalproject.donation.Donation;
 import finalproject.user.enums.BloodType;
+import finalproject.user.enums.Region;
 import finalproject.user.enums.Sex;
 import finalproject.user.enums.UserRole;
 import jakarta.persistence.*;
@@ -40,6 +41,7 @@ public class User implements UserDetails {
     private Sex sex;
     private LocalDate birthday;
     private String address;
+    private Region region;
     @Enumerated(EnumType.STRING)
     @Column(name = "blood_type")
     private BloodType bloodtype;

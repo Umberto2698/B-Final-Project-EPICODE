@@ -1,6 +1,7 @@
 package finalproject.donation;
 
 import finalproject.donation.enums.Check;
+import finalproject.donation_center.DonationCenter;
 import finalproject.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,4 +31,8 @@ public class Donation {
     @ManyToOne
     @JoinColumn(name = "donor_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "center")
+    private DonationCenter center;
 }
