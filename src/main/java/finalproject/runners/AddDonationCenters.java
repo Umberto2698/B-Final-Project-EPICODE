@@ -1,5 +1,6 @@
 package finalproject.runners;
 
+import finalproject.donation_center.DonationCenterRepository;
 import finalproject.donation_center.DonationCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,10 +12,14 @@ import org.springframework.stereotype.Component;
 public class AddDonationCenters implements CommandLineRunner {
     @Autowired
     private DonationCenterService donationCenterService;
+    @Autowired
+    private DonationCenterRepository donationCenterRepository;
 
     @Override
     public void run(String... args) throws Exception {
         String donationCenterCsvUrl = "src/main/java/finalproject/dataset/donation_centers.csv";
-        donationCenterService.readDonationCenterFileCsv(donationCenterCsvUrl);
+        if (donationCenterRepository.findAll().isEmpty()) {
+            donationCenterService.readDonationCenterFileCsv(donationCenterCsvUrl);
+        }
     }
 }

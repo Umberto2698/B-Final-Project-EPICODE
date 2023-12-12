@@ -5,6 +5,7 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+import finalproject.exceptions.NotFoundException;
 import finalproject.user.enums.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DonationCenterService {
@@ -22,23 +24,25 @@ public class DonationCenterService {
         donationCenterRepository.save(donationCenter);
     }
 
-    public void getCenterFromRegion(Region region) {
-        donationCenterRepository.findByRegion(region);
+    public DonationCenter getById(UUID id) {
+        return donationCenterRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    public List<DonationCenter> getCenterFromRegion(Region region) {
+        return donationCenterRepository.findByRegion(region);
     }
 
     public void readDonationCenterFileCsv(String path) {
-        if (donationCenterRepository.findAll().isEmpty()) {
-            try {
-                CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
-                CSVReader reader = new CSVReaderBuilder(new FileReader(path)).withCSVParser(parser).withSkipLines(1).build();
-                List<String[]> donationCenterRows = reader.readAll();
-                for (int i = 0; i < donationCenterRows.size(); i++) {
-                    DonationCenter center = this.createCenter(donationCenterRows.get(i));
-                    this.save(center);
-                }
-            } catch (CsvException | IOException e) {
-                throw new RuntimeException(e);
+        try {
+            CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+            CSVReader reader = new CSVReaderBuilder(new FileReader(path)).withCSVParser(parser).withSkipLines(1).build();
+            List<String[]> donationCenterRows = reader.readAll();
+            for (int i = 0; i < donationCenterRows.size(); i++) {
+                DonationCenter center = this.createCenter(donationCenterRows.get(i));
+                this.save(center);
             }
+        } catch (CsvException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
