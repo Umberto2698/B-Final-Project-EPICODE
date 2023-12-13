@@ -33,6 +33,6 @@ public class Donation {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "center")
+    @JoinColumn(name = "center_id")
     private DonationCenter center;
 }
