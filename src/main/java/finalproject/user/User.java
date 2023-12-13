@@ -2,6 +2,7 @@ package finalproject.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.javafaker.Faker;
+import finalproject.confirmationToken.ConfirmationToken;
 import finalproject.donation.Donation;
 import finalproject.user.enums.BloodType;
 import finalproject.user.enums.Region;
@@ -25,7 +26,7 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 @Builder(builderClassName = "UserBuilder")
-@JsonIgnoreProperties({"password", "donations", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
+@JsonIgnoreProperties({"password", "donations", "tokens", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -47,12 +48,17 @@ public class User implements UserDetails {
     @Column(name = "blood_type")
     private BloodType bloodtype;
     @Column(name = "avatar_url")
-    private String avatarUrl = "https://ui-avatars.com/api/?name=" + this.name + "+" + this.surname;
+    private String avatarUrl;
     private double height;
     private double weight;
+    private Boolean enable = false;
+    private Boolean locked = false;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Donation> donations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<ConfirmationToken> tokens = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -71,7 +77,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !this.locked;
     }
 
     @Override
@@ -81,7 +87,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enable;
     }
 
     public Sex getSex() {
