@@ -39,7 +39,7 @@ public class DonationService {
         if (pageable.getPageSize() <= 0 || pageable.isUnpaged()) {
             throw new NotContextException();
         }
-        return donationRepository.findByUserIdAndDonationDate(userId, year, pageable);
+        return donationRepository.findByDonationDateYear(year, userId, pageable);
     }
 
     public Donation save(NewDonationDTO body, User user, UUID centerId) {

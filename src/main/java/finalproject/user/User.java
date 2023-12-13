@@ -47,11 +47,11 @@ public class User implements UserDetails {
     @Column(name = "blood_type")
     private BloodType bloodtype;
     @Column(name = "avatar_url")
-    private String avatarUrl;
+    private String avatarUrl = "https://ui-avatars.com/api/?name=" + this.name + "+" + this.surname;
     private double height;
     private double weight;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Donation> donations = new ArrayList<>();
 
     @Override
