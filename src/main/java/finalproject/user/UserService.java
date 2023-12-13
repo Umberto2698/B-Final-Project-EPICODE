@@ -31,7 +31,9 @@ public class UserService {
 
     public void delete(UUID id) {
         User found = this.getById(id);
-        cloudinaryService.deleteImageByUrl(found.getAvatarUrl());
+        if (!found.getAvatarUrl().equals("https://ui-avatars.com/api/?name=" + found.getName() + "+" + found.getSurname())) {
+            cloudinaryService.deleteImageByUrl(found.getAvatarUrl());
+        }
         userRepository.delete(found);
     }
 

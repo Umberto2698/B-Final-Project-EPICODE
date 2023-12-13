@@ -31,4 +31,9 @@ public class AuthController {
             return authService.save(body);
         }
     }
+
+    @GetMapping("/confirm")
+    public User confirm(@RequestParam("token") String token) {
+        return authService.confirmToken(token);
+    }
 }
