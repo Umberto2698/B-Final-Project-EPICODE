@@ -51,7 +51,7 @@ public class AuthService {
         }
     }
 
-    public User confirmToken(String token) {
+    public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token);
         Calendar date = Calendar.getInstance();
         if (confirmationToken.getConfirmationDate() != null) {
@@ -62,12 +62,17 @@ public class AuthService {
         confirmationToken.setConfirmationDate(date.getTime());
         User user = userService.findByEmail(confirmationToken.getUser().getEmail());
         user.setEnable(true);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return this.buildConfirmationPage("http://localhost:5173/");
     }
 
     public User save(UserRegisterDTO body) {
-        userRepository.findByEmail(body.email()).ifPresent(a -> {
-            throw new BadRequestException("The email " + a.getEmail() + " is alredy used.");
+        userRepository.findByEmail(body.email()).ifPresent(found -> {
+            if (found.getEnable()) {
+                throw new BadRequestException("The email " + found.getEmail() + " is alredy used.");
+            } else {
+                userService.delete(found.getId());
+            }
         });
         User user = new User();
         user.setEmail(body.email());
@@ -87,7 +92,7 @@ public class AuthService {
                 newUser
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
-        emailSender.send(body.email(), buildEmail(body.name(), "http://localhost:8080/auth/confirm?token=" + token));
+        emailSender.send(body.email(), this.buildEmail(body.name(), "http://localhost:8080/auth/confirm?token=" + token));
         return newUser;
     }
 
@@ -196,5 +201,13 @@ public class AuthService {
                 "  </tbody></table><div class=\"yj6qo\"></div><div class=\"adL\">\n" +
                 "\n" +
                 "</div></div>";
+    }
+
+    private String buildConfirmationPage(String link) {
+        return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c;display:flex;align-items:center;justify-content:center;flex-direction:column;height:100%\">\n" +
+                "\n" +
+                "<p style=\"margin-bottom: 10px;font-size:19px;line-height:25px;color:#0b0c0c\">Email successfully confirmed!</p><blockquote style=\"margin: 0;font-size:19px;line-height:25px\"><p style=\"margin: 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Go to web page...</a> </p></blockquote>\n" +
+                "\n" +
+                "</div>";
     }
 }

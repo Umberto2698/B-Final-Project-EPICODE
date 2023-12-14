@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @GetMapping("/confirm")
-    public User confirm(@RequestParam("token") String token) {
+    public String confirm(@RequestParam("token") String token) {
         return authService.confirmToken(token);
     }
 }

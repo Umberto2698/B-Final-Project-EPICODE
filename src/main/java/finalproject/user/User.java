@@ -26,7 +26,7 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 @Builder(builderClassName = "UserBuilder")
-@JsonIgnoreProperties({"password", "donations", "tokens", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
+@JsonIgnoreProperties({"password", "donations", "tokens", "authorities", "enable", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
