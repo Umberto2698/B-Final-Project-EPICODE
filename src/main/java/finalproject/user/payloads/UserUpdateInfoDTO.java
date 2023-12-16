@@ -1,5 +1,6 @@
 package finalproject.user.payloads;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import finalproject.user.enums.BloodType;
 import finalproject.user.enums.Region;
 import finalproject.user.enums.Sex;
@@ -24,6 +25,7 @@ public record UserUpdateInfoDTO(String name,
                                 @ValidBloodType(enumClass = BloodType.class,
                                         message = "Blood type not valid")
                                 String bloodType,
+                                @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
                                 LocalDate birthday,
                                 @ValidSex(enumClass = Sex.class,
                                         message = "Sex not valid")

@@ -77,6 +77,7 @@ public class AuthService {
         User user = new User();
         user.setEmail(body.email());
         user.setName(body.name());
+        user.setAddress(",-,");
         user.setSurname(body.surname());
         user.setRegion(Region.valueOf(body.region()));
         user.setPassword(bcrypt.encode(body.password()));

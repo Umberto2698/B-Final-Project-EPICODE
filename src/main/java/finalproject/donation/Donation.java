@@ -1,5 +1,6 @@
 package finalproject.donation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import finalproject.donation.enums.Check;
 import finalproject.donation_center.DonationCenter;
 import finalproject.user.User;
@@ -23,6 +24,8 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "donation_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+
     private LocalDate donationDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "check_in")

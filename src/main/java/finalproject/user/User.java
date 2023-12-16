@@ -1,5 +1,6 @@
 package finalproject.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.javafaker.Faker;
 import finalproject.confirmationToken.ConfirmationToken;
@@ -40,6 +41,7 @@ public class User implements UserDetails {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Sex sex;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate birthday;
     private String address;
     @Enumerated(EnumType.STRING)
