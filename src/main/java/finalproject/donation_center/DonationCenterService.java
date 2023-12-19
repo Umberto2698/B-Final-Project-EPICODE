@@ -49,10 +49,12 @@ public class DonationCenterService {
     private DonationCenter createCenter(String[] line) {
         try {
             DonationCenter donationCenter = new DonationCenter();
-            donationCenter.setAddress(line[5]);
-            donationCenter.setCap(line[6]);
-            donationCenter.setMunicipality(line[7]);
-            switch (line[2]) {
+            donationCenter.setAddress(line[1].trim());
+            donationCenter.setDenomination(line[5].trim());
+            donationCenter.setProvinceAbbreviation(line[4].trim());
+            donationCenter.setCap(line[2]);
+            donationCenter.setMunicipality(line[3].trim());
+            switch (line[0]) {
                 case "VALLE DAOSTA" -> {
                     donationCenter.setRegion(Region.VALLE_DAOSTA);
                 }
@@ -66,7 +68,7 @@ public class DonationCenterService {
                     donationCenter.setRegion(Region.EMILIA_ROMAGNA);
                 }
                 default -> {
-                    donationCenter.setRegion(Region.valueOf(line[2]));
+                    donationCenter.setRegion(Region.valueOf(line[0].trim()));
                 }
             }
             return donationCenter;

@@ -25,7 +25,6 @@ public class Donation {
     private UUID id;
     @Column(name = "donation_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-
     private LocalDate donationDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "check_in")

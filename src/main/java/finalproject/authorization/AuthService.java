@@ -79,6 +79,7 @@ public class AuthService {
         user.setName(body.name());
         user.setAddress(",-,");
         user.setSurname(body.surname());
+        user.setAddress(",  - , ");
         user.setRegion(Region.valueOf(body.region()));
         user.setPassword(bcrypt.encode(body.password()));
         user.setAvatarUrl("https://ui-avatars.com/api/?name=" + body.name() + "+" + body.surname());

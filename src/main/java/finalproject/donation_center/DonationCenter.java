@@ -24,7 +24,10 @@ public class DonationCenter {
     private UUID id;
     private String address;
     private String municipality;
+    @Column(name = "province_abbreviation")
+    private String provinceAbbreviation;
     private String cap;
+    private String denomination;
     @Enumerated(EnumType.STRING)
     private Region region;
     @OneToMany(mappedBy = "center")
