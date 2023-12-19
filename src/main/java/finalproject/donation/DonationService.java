@@ -26,6 +26,11 @@ public class DonationService {
     @Autowired
     private DonationCenterService donationCenterService;
 
+
+    public long getAllDonationCount() {
+        return donationRepository.count();
+    }
+
     public Page<Donation> findByUserId(UUID userId, int page, int size, String orderBy) throws NotContextException {
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy).descending());
         if (pageable.getPageSize() <= 0 || pageable.isUnpaged()) {

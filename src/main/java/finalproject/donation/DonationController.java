@@ -20,6 +20,11 @@ public class DonationController {
     @Autowired
     private DonationService donationService;
 
+    @GetMapping("")
+    public long getAllDonationCount() {
+        return donationService.getAllDonationCount();
+    }
+
     @GetMapping("/me")
     public Page<Donation> getCurrentProfileDonations(@AuthenticationPrincipal User currentUser, @RequestParam(defaultValue = "0") int page,
                                                      @RequestParam(defaultValue = "10") int size,
