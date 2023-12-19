@@ -27,7 +27,7 @@ public class DonationService {
     private DonationCenterService donationCenterService;
 
     public Page<Donation> findByUserId(UUID userId, int page, int size, String orderBy) throws NotContextException {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy).descending());
         if (pageable.getPageSize() <= 0 || pageable.isUnpaged()) {
             throw new NotContextException();
         }
@@ -35,7 +35,7 @@ public class DonationService {
     }
 
     public Page<Donation> getBillsByUserIdAndYear(UUID userId, int year, int page, int size, String orderBy) throws NotContextException {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy).descending());
         if (pageable.getPageSize() <= 0 || pageable.isUnpaged()) {
             throw new NotContextException();
         }
