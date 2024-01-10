@@ -46,7 +46,7 @@ public class Gmail {
             throws IOException {
         // Load client secrets.
         GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(jsonFactory, new InputStreamReader(Gmail.class.getResourceAsStream("/client_secret_599974988971-i0hkoa7r2r83rjr763ndst09o9putuf3.apps.googleusercontent.com.json")));
+                GoogleClientSecrets.load(jsonFactory, new InputStreamReader(Gmail.class.getResourceAsStream("/client_secret_1003331449505-m8djc07ou88ht9rlj6bues2tvgvl93p4.apps.googleusercontent.com.json")));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
